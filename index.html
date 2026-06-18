@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Anniversary ❤️</title>
+
+<style>
+
+.whatsapp-btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:14px 28px;
+
+    background:#25D366;
+    color:white;
+
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+
+    border-radius:15px;
+
+    box-shadow:
+    0 0 15px rgba(37,211,102,.5);
+
+    transition:.3s;
+}
+
+.whatsapp-btn:hover{
+    transform:scale(1.05);
+
+    box-shadow:
+    0 0 25px rgba(37,211,102,.8);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    overflow:hidden;
+    color:white;
+}
+
+/* VIDEO BACKGROUND */
+#bg-video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-2;
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(
+        rgba(255,182,193,.45),
+        rgba(255,255,255,.25)
+    );
+    z-index:-1;
+}
+
+/* LOGIN */
+
+#loginPage{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:340px;
+    padding:30px;
+    border-radius:25px;
+    backdrop-filter:blur(15px);
+    background:rgba(255,255,255,.15);
+    box-shadow:0 0 30px rgba(255,255,255,.3);
+    text-align:center;
+}
+
+.login-box h1{
+    margin-bottom:20px;
+}
+
+.login-box input{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    margin:10px 0;
+}
+
+.login-box button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#ff69b4;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.login-box button:hover{
+    background:#ff4fa3;
+}
+
+/* HALAMAN KADO */
+
+#giftPage{
+    display:none;
+    width:100%;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.gift{
+    font-size:150px;
+    cursor:pointer;
+    animation:pulse 1.5s infinite;
+    transition:.8s;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
+}
+
+/* UCAPAN */
+
+.text-area{
+    display:none;
+    opacity:0;
+    transform:translateY(50px);
+    transition:1.2s;
+
+    text-align:center;
+    max-width:850px;
+
+    padding:35px;
+
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(15px);
+    -webkit-backdrop-filter:blur(15px);
+
+    border-radius:25px;
+
+    box-shadow:
+    0 0 30px rgba(255,255,255,.2),
+    0 0 60px rgba(255,105,180,.15);
+
+    border:1px solid rgba(255,255,255,.25);
+}
+
+.text-area.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.title{
+    font-size:42px;
+    margin-bottom:20px;
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{
+        text-shadow:
+        0 0 10px pink,
+        0 0 20px pink;
+    }
+
+    to{
+        text-shadow:
+        0 0 20px #ff69b4,
+        0 0 40px #ff69b4,
+        0 0 60px #ff69b4;
+    }
+}
+
+.message{
+    font-size:22px;
+    line-height:1.8;
+    margin-bottom:25px;
+    
+}
+
+.timer-title{
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+#timer{
+    font-size:30px;
+    font-weight:bold;
+    text-shadow:0 0 20px pink;
+}
+
+/* HATI BERJATUHAN */
+
+.heart{
+    position:fixed;
+    top:-50px;
+    color:#ff69b4;
+    pointer-events:none;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-50px);
+    }
+
+    to{
+        transform:translateY(110vh);
+    }
+}
+
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="lagu1.mp3" type="audio/mp3">
+</audio>
+
+<audio id="loginSound">
+    <source src="ding.mp3" type="audio/mp3">
+</audio>
+
+<audio id="giftSound">
+    <source src="sring.mp3" type="audio/mp3">
+</audio>
+
+<!-- GANTI DENGAN VIDEO KAMU -->
+<video autoplay muted loop id="bg-video">
+    <source src="pidio.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<!-- LOGIN -->
+
+<div id="loginPage">
+
+    <div class="login-box">
+
+        <h1>❤️ Login Cinta ❤️</h1>
+
+        <input
+        type="text"
+        id="username"
+        placeholder="Nama Pacarku">
+
+        <input
+        type="password"
+        id="password"
+        placeholder="Password">
+
+        <button onclick="login()">
+            Masuk ❤️
+        </button>
+
+    </div>
+
+</div>
+
+<!-- HALAMAN UTAMA -->
+
+<div id="giftPage">
+
+    <div class="gift" id="gift">
+        🎁
+    </div>
+
+    <div class="text-area" id="message">
+
+        <h1 class="title">
+            Happy Anniversary Kita yang ke-1 ❤️
+        </h1>
+
+        <div class="message">
+            Terima kasih sudah hadir dalam hidupku.
+            Terima kasih untuk semua tawa, cerita,
+            perhatian, dan cinta yang telah kamu berikan.
+
+            <br><br>
+
+            Semoga hubungan kita selalu dipenuhi
+            kebahagiaan dan kita bisa terus bersama
+            sampai waktu yang sangat lama. ❤️
+        </div>
+
+        <div class="timer-title">
+            Kita sudah bersama selama:
+        </div>
+
+        <div id="timer"></div>
+
+        <a
+    class="whatsapp-btn"
+    href="https://wa.me/6281323269075"
+    target="_blank">
+
+    💚 PESAN/KESAN NYA BUB
+
+</a>
+
+    </div>
+
+</div>
+
+<script>
+
+/* LOGIN */
+
+function login(){
+
+    let user =
+    document.getElementById("username").value;
+
+    let pass =
+    document.getElementById("password").value;
+
+    if(
+        user === "riza" &&
+        pass === "280624"
+    ){
+
+        document
+        .getElementById("loginSound")
+        .play();
+
+        const music =
+        document.getElementById("bgMusic");
+
+        music.volume = 0.4;
+
+        music.play();
+
+        document.getElementById("loginPage")
+        .style.display="none";
+
+        document.getElementById("giftPage")
+        .style.display="flex";
+
+    }
+    else{
+        alert("Lu siapa njir?");
+    }
+
+}
+
+/* KLIK KADO */
+
+document
+.getElementById("gift")
+.addEventListener("click",()=>{
+
+    document
+    .getElementById("giftSound")
+    .play();
+
+    let gift =
+    document.getElementById("gift");
+
+    gift.style.transform="scale(3)";
+    gift.style.opacity="0";
+
+    setTimeout(()=>{
+
+        gift.style.display="none";
+
+        let msg =
+        document.getElementById("message");
+
+        msg.style.display="block";
+
+        setTimeout(()=>{
+            msg.classList.add("show");
+        },100);
+
+    },800);
+
+});
+
+/* TIMER HUBUNGAN */
+
+/*
+GANTI TANGGAL JADIAN
+FORMAT:
+TAHUN, BULAN(0-11), TANGGAL
+*/
+
+const startDate =
+new Date(2024,6,28,0,0,0);
+
+function updateTimer(){
+
+    const now = new Date();
+
+    let diff = now - startDate;
+
+    let days =
+    Math.floor(diff/(1000*60*60*24));
+
+    let hours =
+    Math.floor(
+    (diff%(1000*60*60*24))
+    /(1000*60*60));
+
+    let minutes =
+    Math.floor(
+    (diff%(1000*60*60))
+    /(1000*60));
+
+    let seconds =
+    Math.floor(
+    (diff%(1000*60))
+    /1000);
+
+    document.getElementById("timer")
+    .innerHTML =
+
+    days + " Hari " +
+    hours + " Jam " +
+    minutes + " Menit " +
+    seconds + " Detik";
+
+}
+
+setInterval(updateTimer,1000);
+updateTimer();
+
+/* HATI BERJATUHAN */
+
+function createHeart(){
+
+    const heart =
+    document.createElement("div");
+
+    heart.classList.add("heart");
+
+    heart.innerHTML="❤";
+
+    heart.style.left =
+    Math.random()*100+"vw";
+
+    heart.style.fontSize =
+    (Math.random()*20+15)+"px";
+
+    heart.style.animationDuration =
+    (Math.random()*4+4)+"s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },8000);
+
+}
+
+setInterval(createHeart,250);
+
+/* MUSIK MULAI SAAT KLIK PERTAMA */
+
+const music = document.getElementById("bgMusic");
+
+document.addEventListener("click", function startMusic(){
+
+    music.volume = 0.4;
+    music.play();
+
+    document.removeEventListener("click", startMusic);
+
+});
+
+</script>
+
+</body>
+</html>
